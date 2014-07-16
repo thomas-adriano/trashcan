@@ -63,8 +63,7 @@ public class JarLoader {
 				e.printStackTrace();
 			}
 		} else {
-			System.out.println("O arquivo " + f.getAbsolutePath()
-					+ " não é um jar, por isso não será carregado.");
+			// TODO ADICIONAR LOGGER AQUI
 		}
 	}
 

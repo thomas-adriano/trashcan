@@ -1,5 +1,6 @@
 package com.jarcrawler.core;
 
+import java.io.File;
 import java.io.IOException;
 import java.security.CodeSigner;
 import java.security.cert.Certificate;
