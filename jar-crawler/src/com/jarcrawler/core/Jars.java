@@ -2,14 +2,19 @@ package com.jarcrawler.core;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 import java.util.jar.JarFile;
 
+/**
+ * Represents a collection of jar files. </br> Does not accept duplicated jar
+ * files and is thread safe
+ * 
+ * @author Thomas.Adriano
+ *
+ */
 public class Jars implements Iterable<JarFile> {
 
 	private Set<JarFile> jars;

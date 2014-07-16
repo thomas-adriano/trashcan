@@ -41,29 +41,16 @@ public class SearchByClassName implements SearchAction {
 	public Jars execute(Jars jars) {
 		Jars result = new Jars();
 
-		// TODO remove this DRY violation
-		if (names.length == 1) {
-			for (JarFile actual : jars) {
-				Iterator<JarEntry> it = actual.stream().iterator();
-				while (it.hasNext()) {
-					JarEntryDecorator decorator = new JarEntryDecorator(
-							it.next());
-					if (decorator.getClassNameIfEntryIsAClass()
-							.equalsIgnoreCase(names[0]))
-						result.addJar(actual);
-				}
-			}
-		} else {
-			for (String classNameToSearch : names) {
-				prepareThreads(classNameToSearch, jars, result);
-			}
-			try {
-				pool.shutdown();
-				pool.awaitTermination(Long.MAX_VALUE, TimeUnit.SECONDS);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		for (String classNameToSearch : names) {
+			prepareThreads(classNameToSearch, jars, result);
+		}
+
+		try {
+			pool.shutdown();
+			pool.awaitTermination(Long.MAX_VALUE, TimeUnit.SECONDS);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 		return result;
@@ -96,7 +83,8 @@ public class SearchByClassName implements SearchAction {
 				while (it.hasNext()) {
 					JarEntryDecorator decorator = new JarEntryDecorator(
 							it.next());
-					System.out.println(Thread.currentThread().getName() + " || Verificando se "
+					System.out.println(Thread.currentThread().getName()
+							+ " || Verificando se "
 							+ decorator.getClassNameIfEntryIsAClass() + " = "
 							+ jarName);
 					if (decorator.getClassNameIfEntryIsAClass()
